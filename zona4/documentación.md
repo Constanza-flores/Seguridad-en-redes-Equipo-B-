@@ -7,6 +7,16 @@ La Zona 4 corresponde a la capa de integración de aplicaciones y servicios inte
 * **Nombre de la red Docker:** `zona4_integracion`
 
 ---
+### Comandos cmd
+para levantar el servicio: 
+$ sudo python3 nombre.py
+
+Para levantar los servicios si la maquina ya los tiene creados:
+$ sudo docker start api_gateway_zona4 redis_zona4 rabbitmq_zona4
+
+Para verificar las ip y el levantamiento:
+$ sudo docker network inspect -f '{{range .Containers}}{{.IPv4Address}} - {{.Name}}{{"\n"}}{{end}}' zona4_integracion
+
 
 ## 2. Inventario de Activos y Asignación IP (Topología)
 

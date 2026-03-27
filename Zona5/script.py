@@ -1,5 +1,3 @@
-import subprocess
-import sys
 import os
 import socket
 import time
@@ -30,7 +28,7 @@ def testear_servicios():
     }
     
     todos_ok = True
-    
+   
     for nombre, puerto in servicios.items():
         # Creamos un socket temporal para intentar la conexión
         sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -56,7 +54,7 @@ def testear_servicios():
 
 def instalar_docker():
     if subprocess.run("command -v docker", shell=True, capture_output=True).returncode != 0:
-        ejecutar("sudo dnf install -y docker", "Instalando Docker")
+        ejecutar("sudo apt install -y docker", "Instalando Docker")
         ejecutar("sudo systemctl start docker", "Iniciando servicio Docker")
         ejecutar("sudo systemctl enable docker", "Habilitando Docker en el arranque")
     else:
@@ -85,7 +83,7 @@ def desplegar_vulnerable_llm():
     time.sleep(10)# --- 3. Configurar Servidor de Base de Datos ---
 
 def configurar_postgresql():
-    ejecutar("sudo dnf install -y postgresql-server postgresql-contrib", "Instalando PostgreSQL")
+    ejecutar("sudo apt install -y postgresql-server postgresql-contrib", "Instalando PostgreSQL")
     
     # En Fedora, es estricto inicializar la DB antes del primer arranque
     if not os.path.exists("/var/lib/pgsql/data/PG_VERSION"):
@@ -94,18 +92,17 @@ def configurar_postgresql():
     ejecutar("sudo systemctl start postgresql", "Iniciando servicio PostgreSQL")
     ejecutar("sudo systemctl enable postgresql", "Habilitando PostgreSQL en el arranque")
 
-# --- 4. Implementar Servidor de Cache ---
 def configurar_redis():
-    ejecutar("sudo dnf install -y redis", "Instalando Redis")
+    ejecutar("sudo apt install -y redis", "Instalando Redis")
     # Configurar para que escuche solo localmente. En Fedora puede estar en /etc/redis/redis.conf o /etc/redis.conf
     cmd_sed = "sudo sed -i 's/^bind .*/bind 127.0.0.1 ::1/' /etc/redis/redis.conf /etc/redis.conf 2>/dev/null || true"
     ejecutar(cmd_sed, "Configurando Redis para aceptar solo conexiones locales")
-    ejecutar("sudo systemctl start redis", "Iniciando Redis")
-    ejecutar("sudo systemctl enable redis", "Habilitando Redis")
+    ejecutar("sudo systemctl start redis-server", "Iniciando Redis")
+    ejecutar("sudo systemctl enable redis-server", "Habilitando Redis")
 
-# --- 5. Configurar Message Queue ---
+
 def configurar_rabbitmq():
-    ejecutar("sudo dnf install -y rabbitmq-server", "Instalando RabbitMQ")
+    ejecutar("sudo apt install -y rabbitmq-server", "Instalando RabbitMQ")
     ejecutar("sudo rabbitmq-plugins enable rabbitmq_management", "Habilitando consola web de RabbitMQ")
     ejecutar("sudo systemctl start rabbitmq-server", "Iniciando RabbitMQ")
     ejecutar("sudo systemctl enable rabbitmq-server", "Habilitando RabbitMQ")
@@ -113,7 +110,7 @@ def configurar_rabbitmq():
 # --- 6. Aplicar Hardening (Firewalld) ---
 def aplicar_hardening():
     print("[*] Iniciando fase de Hardening con Firewalld...")
-    ejecutar("sudo dnf install -y firewalld", "Asegurando paquete Firewalld")
+    ejecutar("sudo apt install -y firewalld", "Asegurando paquete Firewalld")
     ejecutar("sudo systemctl start firewalld", "Iniciando Firewalld")
     ejecutar("sudo systemctl enable firewalld", "Habilitando Firewalld en el arranque")
     

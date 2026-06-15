@@ -1,20 +1,7 @@
 #!/usr/bin/env python3
 """
 juiceshop_lab.py
-================
-Script reproducible para montar un laboratorio de OWASP Juice Shop sobre Docker.
-Pensado para ejecutarse en una maquina virtual Kali Linux (Debian-based).
-
-OWASP Juice Shop es una aplicacion web *deliberadamente vulnerable*, mantenida
-por OWASP con fines educativos. Este script automatiza:
-
-  1. Verificar/instalar Docker.
-  2. Habilitar y arrancar el servicio Docker.
-  3. Descargar (pull) la imagen oficial de Juice Shop.
-  4. Levantar el contenedor exponiendo el puerto 3000.
-  5. Esperar a que la app responda y mostrar la URL.
-
-USO TIPICO (dentro de la VM Kali):
+USOS:
 
     sudo python3 juiceshop_lab.py up        # instala todo y levanta la app
     python3 juiceshop_lab.py status         # ver estado del contenedor
@@ -22,11 +9,7 @@ USO TIPICO (dentro de la VM Kali):
     python3 juiceshop_lab.py down           # detener y borrar el contenedor
     python3 juiceshop_lab.py reset          # borrar contenedor y volver a levantar (estado limpio)
 
-Despues de 'up', abre en el navegador de Kali:  http://localhost:3000
-
-AVISO LEGAL/ETICO: Juice Shop esta hecho para practicar de forma segura en TU
-propio entorno aislado. Solo atacalo en esta VM local. No uses estas tecnicas
-contra sistemas que no te pertenezcan o sin autorizacion explicita.
+Despues de up:  http://localhost:3000
 """
 
 import argparse
@@ -38,7 +21,6 @@ import sys
 import time
 import urllib.request
 
-# ----------------------------- Configuracion -------------------------------- #
 
 IMAGE = "bkimminich/juice-shop"      # imagen oficial de OWASP Juice Shop
 CONTAINER_NAME = "juice-shop"        # nombre del contenedor para reconocerlo

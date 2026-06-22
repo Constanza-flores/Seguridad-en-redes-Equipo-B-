@@ -19,3 +19,4 @@ Link Kanban
 https://seguridadredes.atlassian.net/jira/software/projects/KAN/boards/1
 
 (SI SE REQUIEREN PERMISOS SOLICITAR A MARCELO F)
+<img width="1273" height="866" alt="image" src="https://github.com/user-attachments/assets/07865ceb-4f76-4af5-bea8-625de56e7d4c" />

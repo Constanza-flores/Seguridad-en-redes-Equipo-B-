@@ -19,7 +19,7 @@ Dentro de la VM Kali, en una terminal:
 
 ```bash
 # Instala Docker (si falta), descarga la imagen y levanta Metasploitable2
-sudo python3 metasploitable_min.py
+sudo python3 deploy_metasploitable.py
 ```
 
 Cuando termine, te muestra la IP del objetivo (RHOSTS), por ejemplo:
